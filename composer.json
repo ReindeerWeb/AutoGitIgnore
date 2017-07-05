@@ -1,0 +1,15 @@
+{
+    "name": "reindeerweb/autogitignore",
+    "description": "A post-update-cmd script to automatically add Composer managed packages to .gitignore",
+    "authors": [
+        {
+            "name": "ReindeerWeb, Marcel Rudolf, Germany",
+            "email": "hello@reindeer-web.de"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "ReindeerWeb\\AutoGitIgnore\\": "src/"
+        }
+    }
+}
