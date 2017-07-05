@@ -37,7 +37,7 @@ class GitIgnoreBuilder extends ClassHelper
         $packages = array();
         foreach ($repositoryManager->getLocalRepository()->getPackages() as $package) {
             $path = $installManager->getInstallPath($package);
-            $packages[] = preg_replace('~^' . preg_quote(getcwd() . DIRECTORY_SEPARATOR) . '~', '', realpath($path));
+            $packages[] = preg_replace('~^' . preg_quote(str_replace('\\', '/', getcwd()) . '/') . '~', '', str_replace('\\', '/', realpath($path)));
         }
 
         $packages = array_unique($packages);
