@@ -7,8 +7,12 @@
             "email": "hello@reindeer-web.de"
         }
     ],
+    "require": {
+        "composer/composer": "*",
+        "reindeerweb/classhelper": "1.*"
+    },
     "autoload": {
-        "psr-0": {
+        "psr-4": {
             "ReindeerWeb\\AutoGitIgnore\\": "src/"
         }
     }

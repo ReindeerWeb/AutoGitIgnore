@@ -2,6 +2,12 @@
 A post-update-cmd script to automatically add Composer managed packages to .gitignore
 
 ## Installation
+### Add the following to your composer.json
+```json
+"scripts": {
+    "post-update-cmd": "ReindeerWeb\\AutoGitIgnore\\GitIgnoreBuilder::Go"
+}
+```
 ### Add it to your project with:
 ```shell
 composer require reindeerweb/autogitignore
