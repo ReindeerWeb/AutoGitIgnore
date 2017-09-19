@@ -13,6 +13,14 @@ A post-update-cmd script to automatically add Composer managed packages to .giti
 composer require reindeerweb/autogitignore
 ```
 
+### Exclude dev only packages
+Add to the following to your composer.json
+```json
+"extra": {
+ "autogitignore": "devOnly"
+}
+```
+
 ## License
 3-clause BSD license
 See [License](LICENSE)
