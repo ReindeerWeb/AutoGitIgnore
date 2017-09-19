@@ -33,9 +33,33 @@ class GitIgnoreBuilder extends ClassHelper
         $composer = $event->getComposer();
         $repositoryManager = $composer->getRepositoryManager();
         $installManager = $composer->getInstallationManager();
+        $extraConfiguration = $composer->getPackage()->getExtra();
 
+        $devRequires = array_key_exists('autogitignore', $extraConfiguration)
+                       && $extraConfiguration['autogitignore'] == 'devOnly';
+        if ($devRequires) {
+            $devRequires = array_keys( $composer->getPackage()
+                                                ->getDevRequires() );
+            $requires    = array_keys( $composer->getPackage()->getRequires() );
+            foreach (
+                $repositoryManager->getLocalRepository()
+                                  ->getPackages() as $package
+            ) {
+                $devRequires = array_merge( $devRequires,
+                    array_keys( $package->getDevRequires() ) );
+                $requires    = array_merge( $requires,
+                    array_keys( $package->getRequires() ) );
+            }
+            $devRequires = array_unique( $devRequires );
+            $requires    = array_unique( $requires );
+            sort( $devRequires );
+            sort( $requires );
+        }
         $packages = array();
         foreach ($repositoryManager->getLocalRepository()->getPackages() as $package) {
+            if ($devRequires && (!in_array($package->getName(), $devRequires) || in_array($package->getName(), $requires))) {
+                continue;
+            }
             $path = $installManager->getInstallPath($package);
             $packages[] = preg_replace('~^' . preg_quote(str_replace('\\', '/', getcwd()) . '/') . '~', '', str_replace('\\', '/', realpath($path)));
         }
