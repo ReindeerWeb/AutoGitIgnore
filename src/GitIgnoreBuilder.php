@@ -76,7 +76,7 @@ class GitIgnoreBuilder extends ClassHelper
                 continue;
             }
             $path = $installManager->getInstallPath($package);
-            $packages[] = preg_replace('~^' . preg_quote(str_replace('\\', '/', getcwd()) . '/') . '~', '', str_replace('\\', '/', realpath($path)));
+            $packages[] = '/' . preg_replace('~^' . preg_quote(str_replace('\\', '/', getcwd()) . '/') . '~', '', str_replace('\\', '/', realpath($path))) . '/';
         }
 
         $packages = array_unique($packages);
